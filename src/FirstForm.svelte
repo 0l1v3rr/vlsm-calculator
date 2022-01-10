@@ -2,10 +2,17 @@
     import { onMount } from "svelte";    
 
     let subnets = 2;
+    let ip = "";
+
     let decreaseBtn;
     let increaseBtn;
+    let errorBox;
+
+    let nextBtn;
 
     onMount(() => {
+        errorBox.style.display = 'none';
+        
         if(subnets <= 2) {
             decreaseBtn.disabled = true;
             increaseBtn.disabled = false;
@@ -34,7 +41,7 @@
 
         increaseBtn.onclick = () => {
             subnets++;
-            
+
             if(subnets <= 2) {
                 decreaseBtn.disabled = true;
                 increaseBtn.disabled = false;
@@ -46,12 +53,44 @@
                 increaseBtn.disabled = false;
             }
         }
+
+        nextBtn.onclick = () => {
+            if(isValidIp(ip)) {
+                errorBox.style.display = 'none';
+                // TODO
+            } else {
+                errorBox.style.display = 'block';
+                errorBox.innerText = 'This IP address is not valid.'
+            }
+        }
     });
+
+    function isValidIp(ipaddr) {
+        let splitted = ipaddr.split('.');
+        if(splitted.length != 4) {
+            return false;
+        }
+
+        for(let o of splitted) {
+            let converted = Number(o);
+            if(isNaN(converted)) return false
+
+            if(converted < 0) return false;
+
+            if(converted > 255) return false;
+        }
+
+        return true;
+    }
 </script>
 
 <main>
     <div class="card">
         <div class="card-body">
+            <div bind:this={errorBox} class="alert alert-danger" role="alert">
+                This IP address is not valid.
+            </div>
+
             <div class="mb-4">
                 <label for="subnets" class="form-label">How many subnets do you need?</label>
                 <div class="row">
@@ -66,12 +105,12 @@
             <div class="my-4">
                 <label for="ip" class="form-label">Base IP Address</label>
                 <div class="input-group">
-                    <input id="ip" type="text" class="form-control" placeholder="192.168.0.1">
+                    <input bind:value={ip} id="ip" type="text" class="form-control" placeholder="192.168.0.1" required>
                     <span class="input-group-text">/24</span>
                 </div>
             </div>
             
-            <button class="btn btn-primary">NEXT</button>
+            <button bind:this={nextBtn} class="btn btn-primary">NEXT</button>
         </div>
     </div>
 </main>
