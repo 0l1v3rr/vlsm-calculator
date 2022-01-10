@@ -1,5 +1,52 @@
 <script>
+    import { onMount } from "svelte";    
 
+    let subnets = 2;
+    let decreaseBtn;
+    let increaseBtn;
+
+    onMount(() => {
+        if(subnets <= 2) {
+            decreaseBtn.disabled = true;
+            increaseBtn.disabled = false;
+        } else if (subnets >= 128) {
+            decreaseBtn.disabled = false;
+            increaseBtn.disabled = true;
+        } else {
+            decreaseBtn.disabled = false;
+            increaseBtn.disabled = false;
+        }
+
+        decreaseBtn.onclick = () => {
+            subnets--;
+
+            if(subnets <= 2) {
+                decreaseBtn.disabled = true;
+                increaseBtn.disabled = false;
+            } else if (subnets >= 128) {
+                decreaseBtn.disabled = false;
+                increaseBtn.disabled = true;
+            } else {
+                decreaseBtn.disabled = false;
+                increaseBtn.disabled = false;
+            }
+        }
+
+        increaseBtn.onclick = () => {
+            subnets++;
+            
+            if(subnets <= 2) {
+                decreaseBtn.disabled = true;
+                increaseBtn.disabled = false;
+            } else if (subnets >= 128) {
+                decreaseBtn.disabled = false;
+                increaseBtn.disabled = true;
+            } else {
+                decreaseBtn.disabled = false;
+                increaseBtn.disabled = false;
+            }
+        }
+    });
 </script>
 
 <main>
@@ -8,9 +55,9 @@
             <div class="mb-4">
                 <label for="subnets" class="form-label">How many subnets do you need?</label>
                 <div class="row">
-                    <div class="m-0 col-1"><button class="btn btn-danger w-100">-</button></div>
-                    <div class="m-0 col-10"><input type="number" id="subnets" class="form-control" value="2" disabled></div>
-                    <div class="m-0 col-1"><button class="btn btn-success w-100">+</button></div>
+                    <div class="m-0 col-1"><button bind:this={decreaseBtn} class="btn btn-danger w-100">-</button></div>
+                    <div class="m-0 col-10"><input type="number" id="subnets" class="form-control text-align-center" bind:value={subnets} disabled></div>
+                    <div class="m-0 col-1"><button bind:this={increaseBtn} class="btn btn-success w-100">+</button></div>
                 </div>
             </div>
 
@@ -33,5 +80,8 @@
     .w-100 {
         width: 100%;
         font-weight: 500;
-    } 
+    }
+    .text-align-center {
+        text-align: center;
+    }
 </style>
