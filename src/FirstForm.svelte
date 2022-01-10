@@ -7,10 +7,33 @@
     let decreaseBtn;
     let increaseBtn;
     let errorBox;
+    let ipInput;
 
     let nextBtn;
+    let clearBtn;
 
     onMount(() => {
+        nextBtn.disabled = true;
+
+        if(ip == "") {
+            clearBtn.disabled = true;
+        }
+
+        ipInput.onkeyup = () => {
+            if(ip == "") {
+                clearBtn.disabled = true;
+            } else {
+                clearBtn.disabled = false;
+                errorBox.style.display = 'none';
+            }
+
+            if(isValidIp(ip)) {
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.disabled = true;
+            }
+        }
+        
         errorBox.style.display = 'none';
         
         if(subnets <= 2) {
@@ -63,6 +86,13 @@
                 errorBox.innerText = 'This IP address is not valid.'
             }
         }
+
+        clearBtn.onclick = () => {
+            ip = "";
+            subnets = 2;
+            nextBtn.disabled = true;
+            clearBtn.disabled = true;
+        }
     });
 
     function isValidIp(ipaddr) {
@@ -72,6 +102,8 @@
         }
 
         for(let o of splitted) {
+            if(o == null || o == "") return false;
+
             let converted = Number(o);
             if(isNaN(converted)) return false
 
@@ -105,12 +137,13 @@
             <div class="my-4">
                 <label for="ip" class="form-label">Base IP Address</label>
                 <div class="input-group">
-                    <input bind:value={ip} id="ip" type="text" class="form-control" placeholder="192.168.0.1" required>
+                    <input bind:this={ipInput} bind:value={ip} id="ip" type="text" class="form-control" placeholder="192.168.0.1" required>
                     <span class="input-group-text">/24</span>
                 </div>
             </div>
             
             <button bind:this={nextBtn} class="btn btn-primary">NEXT</button>
+            <button bind:this={clearBtn} class="btn btn-secondary">CLEAR</button>
         </div>
     </div>
 </main>
