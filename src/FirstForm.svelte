@@ -1,8 +1,12 @@
 <script>
-    import { onMount } from "svelte";    
+    import { onMount } from "svelte";
+    import { createEventDispatcher } from 'svelte';
+    import { ipaddr } from './store.js';
+    import { subnet } from './store.js';
+    const dispatch = createEventDispatcher();
 
-    let subnets = 2;
-    let ip = "";
+    let subnets = $subnet;
+    let ip = $ipaddr;
 
     let decreaseBtn;
     let increaseBtn;
@@ -15,15 +19,8 @@
     onMount(() => {
         nextBtn.disabled = true;
 
-        if(ip == "") {
-            clearBtn.disabled = true;
-        }
-
         ipInput.onkeyup = () => {
-            if(ip == "") {
-                clearBtn.disabled = true;
-            } else {
-                clearBtn.disabled = false;
+            if(ip != "") {
                 errorBox.style.display = 'none';
             }
 
@@ -80,7 +77,9 @@
         nextBtn.onclick = () => {
             if(isValidIp(ip)) {
                 errorBox.style.display = 'none';
-                // TODO
+                dispatch("nextClicked");
+                ipaddr.set(ip);
+                subnet.set(subnets);
             } else {
                 errorBox.style.display = 'block';
                 errorBox.innerText = 'This IP address is not valid.'
@@ -91,7 +90,7 @@
             ip = "";
             subnets = 2;
             nextBtn.disabled = true;
-            clearBtn.disabled = true;
+            decreaseBtn.disabled = true;
         }
     });
 
@@ -135,7 +134,7 @@
             <hr class="my-3">
 
             <div class="my-4">
-                <label for="ip" class="form-label">Base IP Address</label>
+                <label for="ip" class="form-label">Major Network</label>
                 <div class="input-group">
                     <input bind:this={ipInput} bind:value={ip} id="ip" type="text" class="form-control" placeholder="192.168.0.1" required>
                     <span class="input-group-text">/24</span>
