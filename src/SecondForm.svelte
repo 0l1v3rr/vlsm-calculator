@@ -23,13 +23,13 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-2">
+                <div class="col-sm-4 col-md-3 col-lg-2">
                     <button bind:this={backBtn} class="btn btn-secondary w-100">BACK</button>
                 </div>
-                <div class="col-8">
+                <div class="col-sm-4 col-md-6 col-lg-8">
                     <h3 class="text-align-center">{ ip }</h3>
                 </div>
-                <div class="col-2">
+                <div class="col-sm-4 col-md-3 col-lg-2">
                     <button class="btn btn-primary w-100">NEXT</button>
                 </div>
                 <hr class="my-3">
