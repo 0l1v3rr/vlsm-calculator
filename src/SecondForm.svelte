@@ -36,11 +36,15 @@
             </div>
 
             <div class="row">
-                <div class="col-2 text-align-center"><b>#</b><hr class="my-1"></div>
-                <div class="col-10 text-align-center"><b>Size</b><hr class="my-1"></div>
+                <div class="col-2 text-align-center"><b>#</b><hr class="mt-1 mb-3"></div>
+                <div class="col-10 text-align-center"><b>Size</b><hr class="mt-1 mb-3"></div>
             </div>
             { #each Array(subnets) as _, i }
-                <SubnetRow count={i + 1} />
+                { #if i == 0 }
+                    <SubnetRow border={false} count={i + 1} />
+                { :else }
+                    <SubnetRow border={true} count={i + 1} />
+                { /if }
             { /each }
         </div>
     </div>
