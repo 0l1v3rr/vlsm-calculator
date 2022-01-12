@@ -145,8 +145,8 @@
                 </div>
             </div>
             
-            <button bind:this={nextBtn} class="btn btn-primary">NEXT</button>
             <button bind:this={clearBtn} class="btn btn-secondary">CLEAR</button>
+            <button bind:this={nextBtn} class="btn btn-primary">NEXT</button>
         </div>
     </div>
 </main>
