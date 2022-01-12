@@ -78,6 +78,10 @@
             if(isValidIp(ip)) {
                 errorBox.style.display = 'none';
                 dispatch("nextClicked");
+                
+                ip = ip.split('.');
+                ip[ip.length - 1] = 0;
+                ip = ip.join('.');
                 ipaddr.set(ip);
                 subnet.set(subnets);
             } else {
@@ -136,7 +140,7 @@
             <div class="my-4">
                 <label for="ip" class="form-label">Major Network</label>
                 <div class="input-group">
-                    <input bind:this={ipInput} bind:value={ip} id="ip" type="text" class="form-control" placeholder="192.168.0.1" required>
+                    <input bind:this={ipInput} bind:value={ip} id="ip" type="text" class="form-control" placeholder="192.168.1.0" required>
                     <span class="input-group-text">/24</span>
                 </div>
             </div>
