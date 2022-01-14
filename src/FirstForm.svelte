@@ -129,9 +129,9 @@
             <div class="mb-4">
                 <label for="subnets" class="form-label">How many subnets do you need?</label>
                 <div class="row">
-                    <div class="m-0 col-1"><button bind:this={decreaseBtn} class="btn btn-danger w-100">-</button></div>
+                    <div class="m-0 col-1"><button bind:this={decreaseBtn} class="btn btn-danger w-100"><i class="fas fa-angle-down"></i></button></div>
                     <div class="m-0 col-10"><input type="number" id="subnets" class="form-control text-align-center" bind:value={subnets} disabled></div>
-                    <div class="m-0 col-1"><button bind:this={increaseBtn} class="btn btn-success w-100">+</button></div>
+                    <div class="m-0 col-1"><button bind:this={increaseBtn} class="btn btn-success w-100"><i class="fas fa-angle-up"></i></button></div>
                 </div>
             </div>
 
@@ -145,8 +145,8 @@
                 </div>
             </div>
             
-            <button bind:this={clearBtn} class="btn btn-secondary">CLEAR</button>
-            <button bind:this={nextBtn} class="btn btn-primary">NEXT</button>
+            <button bind:this={clearBtn} class="btn btn-secondary"><i class="fas fa-eraser"></i> &nbsp;CLEAR</button>
+            <button bind:this={nextBtn} class="btn btn-primary">NEXT &nbsp;<i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 </main>

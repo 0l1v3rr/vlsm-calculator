@@ -158,32 +158,38 @@
                 <hr class="my-3">
             </div>
 
-            { #if phase == 2 }
-                <div class="row">
-                    <div class="col-2 text-align-center"><b>#</b><hr class="mt-1 mb-3"></div>
-                    <div class="col-10 text-align-center"><b>Size</b><hr class="mt-1 mb-3"></div>
-                </div>
-            { /if }
-
-            { #if phase == 2 }
-                { #each Array(subnets) as _, i }
-                    { #if i == 0 }
-                        <SubnetRow border={false} count={i + 1} />
-                    { :else }
-                        <SubnetRow border={true} count={i + 1} />
+            <div class="card">
+                <div class="card-body">
+                    { #if phase == 2 }
+                        <div class="row">
+                            <div class="col-1 text-align-center"><b><i class="fas fa-sort-numeric-down"></i></b></div>
+                            <div class="col-3 text-align-center"><b><i class="fas fa-desktop"></i></b></div>
+                            <div class="col-8 text-align-center"><b>Size</b></div>
+                            <hr class="mt-1 mb-2">
+                        </div>
                     { /if }
-                { /each }
-            { :else if phase == 3 }
-                { #each calculate(nw.sort(compare)) as net }
-                    <ResultRow size={net.size} network={net.network} broadcast={net.broadcast} prefix={net.prefix} mask={net.mask} margin={true} count={net.count} error={net.error} />
-                { /each }
-            { /if }
+
+                    { #if phase == 2 }
+                        { #each Array(subnets) as _, i }
+                            { #if i == 0 }
+                                <SubnetRow border={false} count={i + 1} />
+                            { :else }
+                                <SubnetRow border={true} count={i + 1} />
+                            { /if }
+                        { /each }
+                    { :else if phase == 3 }
+                        { #each calculate(nw.sort(compare)) as net }
+                            <ResultRow size={net.size} network={net.network} broadcast={net.broadcast} prefix={net.prefix} mask={net.mask} margin={true} count={net.count} error={net.error} />
+                        { /each }
+                    { /if }
+                </div>
+            </div>
             
             <div class="row mt-3"><hr></div>
 
-            <button bind:this={backBtn} class="btn btn-secondary">BACK</button>
+            <button bind:this={backBtn} class="btn btn-secondary"><i class="fas fa-chevron-left"></i> &nbsp;BACK</button>
             { #if phase == 2 }
-                <button bind:this={nextBtn} class="btn btn-primary">NEXT</button>
+                <button bind:this={nextBtn} class="btn btn-primary">NEXT &nbsp;<i class="fas fa-chevron-right"></i></button>
             { /if }
         </div>
     </div>

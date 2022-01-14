@@ -6,7 +6,7 @@
     export let border;
     let size = 30;
 
-    let inputField;
+    let range;
 
     let nw = $networks;
     nw.push({
@@ -21,21 +21,11 @@
     networks.set(nw);
 
     onMount(() => {
-        inputField.onkeydown = (e) => {
-            if(size.length >= 3) {
-                if(!e.code.startsWith("Digit") && !e.code.startsWith("Backspace") && !e.code.startsWith("Arrow") && !e.code.startsWith("Backquote")) {
-                    return false;
-                }
-            }
-            
-            if(!e.code.startsWith("Digit") && !e.code.startsWith("Backspace") && !e.code.startsWith("Arrow") && !e.code.startsWith("Backquote")) {
-                return false;
-            }
-
+        range.onchange = () => {
             let index = findIndex();
             if(index != -1) {
-                if(!isNaN(Number(e.key))) {
-                    nw[index].size = Number(size + Number(e.key));
+                if(!isNaN(Number(size))) {
+                    nw[index].size = Number(size);
                 }
             }
         }
@@ -53,24 +43,29 @@
 </script>
 
 <main class="row">
-    <div class="col-2 text-align-center">
+    <div class="col-1 text-align-center">
         { #if border }
             <hr class="mt-0 mb-2"> 
-        { :else }
-            <hr class="mt-0 mb-2 color-transparent"> 
         { /if }
         { count }. 
     </div>
-    <div class="col-10 text-align-center">
-        <input type="text" id="size" bind:this={inputField} bind:value={size} class="form-control">
+    <div class="col-3 text-align-center">
+        { #if border }
+            <hr class="mt-0 mb-2"> 
+        { /if }
+        <span>{size}</span>
+    </div>
+    <div class="col-8 text-align-center">
+        { #if border }
+            <hr class="mt-0 mb-2"> 
+        { /if }
+
+        <input type="range" bind:this={range} bind:value={size} class="form-range" min="2" max="256">
     </div>
 </main>
 
 <style>
     .text-align-center {
         text-align: center;
-    }
-    .color-transparent {
-        color: transparent;
     }
 </style>
