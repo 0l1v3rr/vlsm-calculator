@@ -128,19 +128,19 @@
 
             <div class="mb-4">
                 <label for="subnets" class="form-label">How many subnets do you need?</label>
-                <div class="row">
-                    <div class="m-0 col-1"><button bind:this={decreaseBtn} class="btn btn-danger w-100"><i class="fas fa-angle-down"></i></button></div>
-                    <div class="m-0 col-10"><input type="number" id="subnets" class="form-control text-align-center" bind:value={subnets} disabled></div>
-                    <div class="m-0 col-1"><button bind:this={increaseBtn} class="btn btn-success w-100"><i class="fas fa-angle-up"></i></button></div>
+                <div class="input-group mb-3">
+                    <span class="p-0 input-group-text"><button bind:this={decreaseBtn} class="red-btn btn btn-danger w-100"><i class="fas fa-angle-down"></i></button></span>
+                    <input type="number" id="subnets" class="form-control text-align-center" bind:value={subnets} disabled>
+                    <span class="p-0 input-group-text"><button bind:this={increaseBtn} class="green-btn btn btn-success w-100"><i class="fas fa-angle-up"></i></button></span>
                 </div>
             </div>
 
             <hr class="my-3">
 
             <div class="my-4">
-                <label for="ip" class="form-label">Major Network</label>
+                <label for="majoripaddr" class="form-label">Major Network</label>
                 <div class="input-group">
-                    <input bind:this={ipInput} bind:value={ip} id="ip" type="text" class="form-control" placeholder="192.168.1.0" required>
+                    <input bind:this={ipInput} bind:value={ip} id="majoripaddr" type="text" class="form-control" placeholder="192.168.1.0" required>
                     <span class="input-group-text">/24</span>
                 </div>
             </div>
@@ -158,5 +158,13 @@
     }
     .text-align-center {
         text-align: center;
+    }
+    .green-btn {
+        border-top-left-radius: 0%;
+        border-bottom-left-radius: 0%;
+    }
+    .red-btn {
+        border-bottom-right-radius: 0%;
+        border-top-right-radius: 0%;
     }
 </style>
