@@ -10,6 +10,9 @@
     export let broadcast;
     export let mask;
 
+    let maxSize = 254;
+    if(size > 126) maxSize = 254;
+
     export let error = false;
 
     let row;
@@ -46,11 +49,9 @@
         </li>
         { #if !error }
             <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="fw-bold">Subnet mask</div>
-                        { mask }
-                    </div>
+                <div class="col-12">
+                    <div class="fw-bold">Subnet mask</div>
+                    { mask }
                 </div>
             </li>
         { /if }

@@ -47,7 +47,7 @@
         { #if border }
             <hr class="mt-0 mb-2"> 
         { /if }
-        { count }. 
+        { count }
     </div>
     <div class="col-3 text-align-center">
         { #if border }
